@@ -1,0 +1,354 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url(./assest/background1.jpg);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+/* ── Top header section ── */
+.header {
+  text-align: center;
+}
+
+/* ── Bottom grid: 3 day cards in a row ── */
+.bottom-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+/* ── Each day card ── */
+.container {
+  width: 100%;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(56, 1, 31, 0.425);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(178, 52, 236, 0.2);
+  padding-bottom: 20px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.container:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 40px rgba(178, 52, 236, 0.35);
+}
+
+/* ── h1 (header title) and h2 (day card titles) share the same style ── */
+h1 {
+  color: #563b80;
+  text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.685);
+  font-family: "Bubblegum Sans", sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  text-align: center;
+  border: 2px solid #8963c5;
+  background-color: #ccb4f393;
+  width: 400px;
+  height: 50px;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgb(178, 52, 236);
+  line-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+h2 {
+  color: #563b80;
+  text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.685);
+  font-family: "Bubblegum Sans", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* ── Icon image next to the titles ── */
+img {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 5px;
+}
+
+/* ── Form row: input and button side by side ── */
+.todoFormdiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.todoForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 60%;
+  gap: 18px;
+  margin-right: 25px;
+}
+
+/* ── Task input field ── */
+
+.todoForm input {
+  width: 54.5%;
+  height: 36px;
+  padding: 8px;
+  text-align: center;
+  background: rgba(239, 204, 255, 0.753);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(67, 4, 90, 0.425);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(178, 52, 236, 0.2);
+  color: #572d74;
+  font-family: "Bubblegum Sans", sans-serif;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+}
+
+input::placeholder {
+  color: #563b80;
+  text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.952);
+  font-family: "Bubblegum Sans", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+input:focus {
+  border: 2px solid #8963c5;
+  outline: none;
+  box-shadow: 0 0 12px rgba(137, 99, 197, 0.4);
+  background-color: #bdb5ca;
+}
+
+/* ── Add button ── */
+button {
+  width: 90px;
+  height: 36px;
+  background: rgba(239, 204, 255, 0.753);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(67, 4, 90, 0.425);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(178, 52, 236, 0.2);
+  color: #563b80;
+  text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.685);
+  font-family: "Bubblegum Sans", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+
+button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 20px rgba(178, 52, 236, 0.4);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+.doneBtn {
+  width: 40px;
+  height: 36px;
+  align-self: flex-end;
+}
+.deleteBtn {
+  width: 40px;
+  height: 36px;
+}
+select {
+  width: 120px;
+  height: 36px;
+  background: rgba(239, 204, 255, 0.753);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(67, 4, 90, 0.425);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(178, 52, 236, 0.2);
+  color: #563b80;
+  text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.685);
+  font-family: "Bubblegum Sans", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+select:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 20px rgba(178, 52, 236, 0.4);
+}
+
+/* ── Task list inside each day card ── */
+ul {
+  list-style: none;
+  width: 90%;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  margin-top: 10px;
+}
+
+ul::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Each task item ── */
+ul li {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(86, 59, 128, 0.25);
+  border-left: 3px solid rgba(86, 59, 128, 0.55);
+  border-radius: 12px;
+  padding: 6px 10px;
+  margin: 6px 0;
+  color: #563b80;
+  text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.5);
+  font-family: "Bubblegum Sans", sans-serif;
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideIn 0.25s ease;
+  transition: background 0.2s ease;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+ul li:hover {
+  background: rgba(218, 79, 253, 0.445);
+}
+
+/* ── Completed task: strikethrough and faded ── */
+ul li.done {
+  background-color: #eb86ff;
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
+.divBtn {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+ul li.purpleMissed {
+  border: 1px solid rgb(140, 14, 172);
+  border-left: 3px solid rgb(140, 14, 172);
+  background: rgba(245, 191, 252, 0.45);
+  animation: slideIn 0.25s ease;
+  transition: background 0.2s ease;
+}
+ul li.red {
+  border: 1px solid red;
+  border-left: 3px solid red;
+  background: rgba(238, 100, 130, 0.45);
+  animation: slideIn 0.25s ease;
+  transition: background 0.2s ease;
+}
+/* ── Slide-in animation for new tasks ── */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media  (max-width: 768px) {
+  /* body padding to make room for fixed form at bottom */
+  body {
+    padding-bottom: 100px;
+  }
+
+  /* header smaller on phone */
+  h1 {
+    font-size: 22px;
+    width: 280px;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  /* form fixed at bottom like a toolbar */
+  .todoFormdiv {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(200, 104, 209, 0.164);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    z-index: 999;
+  }
+
+  .todoForm {
+    width: 100%;
+    gap: 8px;
+  }
+
+  /* 2 cards per row */
+  .bottom-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* cards shorter on phone */
+  .container {
+    min-height: 250px;
+  }
+
+  /* smaller text on cards */
+  h2 {
+    font-size: 18px;
+  }
+
+  ul li {
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+  .deleteBtn  {
+    width: 30px;
+    height: 30px
+  }
+  .doneBtn  {
+    width: 30px;
+    height: 30px
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
