@@ -188,17 +188,27 @@ function checkDay() {
 // runs every new day
 // ─────────────────────────────────────────────────────────
 function dailyReset() {
+  // ── Array starting Sunday to match getDay() (0=Sunday) ──
+  const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  
+  // ── Array for the cycle (Monday to Sunday) ──
   const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-  const currentDay = localStorage.getItem("activeDay") || "monday";
+  
+  // ── Get real day if nothing saved yet ──
+  const todayReal = dayNames[new Date().getDay()];
+  const currentDay = localStorage.getItem("activeDay") || todayReal;
+    console.log("real day:", todayReal)        // what day is it really?
+  console.log("active day:", currentDay)     // what day is the app using?
+  console.log("next day will be:", days[(days.indexOf(currentDay) + 1) % days.length])
   const currentIndex = days.indexOf(currentDay);
   const todayCard = document.querySelector(`[data-day="${currentDay}"]`);
 
-  // ── Calculate next day first ──
+  // ── Calculate and save next day first ──
   const nextIndex = (currentIndex + 1) % days.length;
   const nextDay = days[nextIndex];
   localStorage.setItem("activeDay", nextDay);
-  
-  // ── If no card for today (weekend) skip reset but save next day ──
+
+  // ── If no card for today (weekend) skip reset ──
   if(!todayCard) return;
 
   // ── Loop through tasks in today's card only ──
