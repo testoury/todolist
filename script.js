@@ -240,31 +240,34 @@ function checkWeek() {
 // runs every new week
 // ─────────────────────────────────────────────────────────
 function weeklyReset() {
-  // ── Loop through all cards ──
   document.querySelectorAll(".container").forEach(function (cards) {
     cards.querySelectorAll("li").forEach(function (li) {
       const doneBtn = li.querySelector(".doneBtn");
+      const originalDay = li.dataset.day;
+      const originalCard = document.querySelector(
+        `[data-day="${originalDay}"]`,
+      );
+
+      // ✅ Safety checks
+      if (!originalCard) return;
+      if (!doneBtn) return;
+
+      const ulCard = originalCard.querySelector(".todoList");
 
       if (li.classList.contains("done")) {
-        // ── Task was done → unlock it for the new week ──
+        // Unlock task
         li.classList.remove("done");
-        doneBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m8 13l4.228 3.382a1 1 0 0 0 1.398-.148L22 6"/><path fill="currentColor" fill-rule="evenodd" d="m11.19 12.237l4.584-5.604a1 1 0 0 0-1.548-1.266l-4.573 5.59zm-3.167 3.87l-1.537-1.28l-.653.798L2.6 13.2a1 1 0 0 0-1.2 1.6l3.233 2.425a2 2 0 0 0 2.748-.334z" clip-rule="evenodd"/></g></svg>`;
+
+    doneBtn.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M18 8h-1V7c0-2.757-2.243-5-5-5S7 4.243 7 7v1H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2M9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9zm4 8.723V18h-2v-2.277c-.595-.346-1-.984-1-1.723a2 2 0 1 1 4 0c0 .738-.405 1.376-1 1.723"/></svg>';
         doneBtn.disabled = false;
-          const originalDay = li.dataset.day;
-          const originalCard = document.querySelector(
-            `[data-day="${originalDay}"]`,
-          );
-        const ulCard = originalCard.querySelector(".todoList");
+
         ulCard.appendChild(li);
       } else if (li.classList.contains("purpleMissed")) {
-        // ── Task was missed → move back to original card in red ──
-        const originalDay = li.dataset.day;
-        const originalCard = document.querySelector(
-          `[data-day="${originalDay}"]`,
-        );
-        const ulCard = originalCard.querySelector(".todoList");
+        // Move missed back
         li.classList.remove("purpleMissed");
         li.classList.add("red");
+
         ulCard.prepend(li);
       }
     });
