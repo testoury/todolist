@@ -301,7 +301,11 @@ ul li.red {
     height: 40px;
     line-height: 40px;
   }
-
+  img{
+    position: relative;
+    top: -2px;
+    left: 5px;
+  }
   /* form fixed at bottom like a toolbar */
   .todoFormdiv {
     position: fixed;
