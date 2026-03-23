@@ -197,9 +197,7 @@ function dailyReset() {
   // ── Get real day if nothing saved yet ──
   const todayReal = dayNames[new Date().getDay()];
   const currentDay = localStorage.getItem("activeDay") || todayReal;
-    console.log("real day:", todayReal)        // what day is it really?
-  console.log("active day:", currentDay)     // what day is the app using?
-  console.log("next day will be:", days[(days.indexOf(currentDay) + 1) % days.length])
+
   const currentIndex = days.indexOf(currentDay);
   const todayCard = document.querySelector(`[data-day="${currentDay}"]`);
 
