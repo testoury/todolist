@@ -188,28 +188,17 @@ function checkDay() {
 // runs every new day
 // ─────────────────────────────────────────────────────────
 function dailyReset() {
-  // ── Array starting Sunday to match getDay() (0=Sunday) ──
+  // ── Get real day from system ──
   const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-  
-  // ── Array for the cycle (Monday to Sunday) ──
-  const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-  
-  // ── Get real day if nothing saved yet ──
-  const todayReal = dayNames[new Date().getDay()];
-  const currentDay = localStorage.getItem("activeDay") || todayReal;
+  const currentDay = dayNames[new Date().getDay()];
 
-  const currentIndex = days.indexOf(currentDay);
+  // ── Find today's card ──
   const todayCard = document.querySelector(`[data-day="${currentDay}"]`);
-
-  // ── Calculate and save next day first ──
-  const nextIndex = (currentIndex + 1) % days.length;
-  const nextDay = days[nextIndex];
-  localStorage.setItem("activeDay", nextDay);
-
-  // ── If no card for today (weekend) skip reset ──
+console.log(currentDay + " - " + todayCard);
+  // ── If no card for today (weekend) skip ──
   if(!todayCard) return;
 
-  // ── Loop through tasks in today's card only ──
+  // ── Move unlocked tasks to missed card ──
   todayCard.querySelectorAll("li").forEach(function(li) {
     if(!li.classList.contains("done")) {
       li.classList.add("purpleMissed");
