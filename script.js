@@ -189,9 +189,10 @@ function checkDay() {
 // ─────────────────────────────────────────────────────────
 function dailyReset() {
   // ── Get real day from system ──
-  const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  const dayNames = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
   const currentDay = dayNames[new Date().getDay()];
-
+ console.log("getDay() number:", new Date().getDay());
+ console.log("currentDay:", currentDay);
   // ── Find today's card ──
   const todayCard = document.querySelector(`[data-day="${currentDay}"]`);
 console.log(currentDay + " - " + todayCard);
