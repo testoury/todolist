@@ -134,7 +134,7 @@ function saveTasks() {
       });
     });
   });
-  
+
   // ── Convert to JSON string and save ──
   localStorage.setItem("tasks", JSON.stringify(data));
 }
@@ -188,34 +188,51 @@ function checkDay() {
 // runs every new day
 // ─────────────────────────────────────────────────────────
 function dailyReset() {
-  // ── Get real day from system ──
-  const dayNames = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-  const currentDay = dayNames[new Date().getDay()];
- console.log("getDay() number:", new Date().getDay());
- console.log("currentDay:", currentDay);
-  // ── Find today's card ──
-  const todayCard = document.querySelector(`[data-day="${currentDay}"]`);
-console.log(currentDay + " - " + todayCard);
-  // ── If no card for today (weekend) skip ──
-  if(!todayCard) return;
+  const dayNames = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+  ];
+  const todayIndex = new Date().getDay();
 
-  // ── Move unlocked tasks to missed card ──
-  todayCard.querySelectorAll("li").forEach(function(li) {
-    if(!li.classList.contains("done")) {
+  // ⛔ Skip weekend
+  if (todayIndex === 6 || todayIndex === 0) return;
+
+  // ✅ Get YESTERDAY (important)
+  const yesterdayIndex = todayIndex - 1;
+  const yesterday = dayNames[yesterdayIndex];
+
+  const yesterdayCard = document.querySelector(`[data-day="${yesterday}"]`);
+  if (!yesterdayCard) return;
+
+  yesterdayCard.querySelectorAll("li").forEach(function (li) {
+    if (!li.classList.contains("done")) {
       li.classList.add("purpleMissed");
+
       const missedCard = document.querySelector("[data-day='missed']");
       const ulCard = missedCard.querySelector(".todoList");
+
       ulCard.appendChild(li);
-    };
+    }
   });
 
   saveTasks();
-};
+}
 
 // ─────────────────────────────────────────────────────────
 // CHECK WEEK — checks if it's a new week, runs weeklyReset if so
 // ─────────────────────────────────────────────────────────
+
 function checkWeek() {
+  const today = new Date().getDay();
+
+  // Only run on Monday
+  if (today !== 1) return;
+
   const currentWeek = getWeekNumber();
   const savedWeek = Number(localStorage.getItem("Weeknum"));
 
@@ -224,7 +241,6 @@ function checkWeek() {
     localStorage.setItem("Weeknum", currentWeek);
   }
 }
-
 // ─────────────────────────────────────────────────────────
 // WEEKLY RESET — unlocks done tasks, moves missed tasks back to original card in red
 // runs every new week
@@ -248,8 +264,8 @@ function weeklyReset() {
         // Unlock task
         li.classList.remove("done");
 
-    doneBtn.innerHTML =
-      '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M18 8h-1V7c0-2.757-2.243-5-5-5S7 4.243 7 7v1H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2M9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9zm4 8.723V18h-2v-2.277c-.595-.346-1-.984-1-1.723a2 2 0 1 1 4 0c0 .738-.405 1.376-1 1.723"/></svg>';
+        doneBtn.innerHTML =
+          '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M18 8h-1V7c0-2.757-2.243-5-5-5S7 4.243 7 7v1H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2M9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9zm4 8.723V18h-2v-2.277c-.595-.346-1-.984-1-1.723a2 2 0 1 1 4 0c0 .738-.405 1.376-1 1.723"/></svg>';
         doneBtn.disabled = false;
 
         ulCard.appendChild(li);
@@ -271,4 +287,11 @@ function weeklyReset() {
 // ─────────────────────────────────────────────────────────
 loadTasks(); // 1. load saved tasks from localStorage
 checkDay(); // 2. check if it's a new day → daily reset if needed
-checkWeek(); // 3. check if it's a new week → weekly reset if needed
+checkWeek();// 3. check if it's a new week → weekly reset if needed
+setInterval(function () {
+  checkDay();
+  checkWeek();
+}, 60000); // every 60 seconds
+
+
+
